@@ -9,7 +9,6 @@ export class UsersController {
       return [`Fetching users with role: ${role}`];
     }
     return ['Fetching all users'];
-  
   }
   @Get('intern') // GET /users/intern
   findAllInterns(){

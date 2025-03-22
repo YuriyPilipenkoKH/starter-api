@@ -17,12 +17,12 @@ export class UsersController {
   }
 
   @Post() // POST /users
-  create(@Body() user:{}) {
+  create(@Body() user:object) {
     return user
   }
 
   @Patch(':id') // PATCH /users/:id
-  update(@Param('id') id:string, @Body() userUpdate: {}){
+  update(@Param('id') id:string, @Body() userUpdate: object){
     return {id, ...userUpdate}
   }
 

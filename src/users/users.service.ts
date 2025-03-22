@@ -70,11 +70,7 @@ export class UsersService {
     return newUser;
   }
 
-  update(id: string, updatedUser: { 
-    name?: string, 
-    email?: string,
-    role?: 'intern' | 'admin' 
-    }) {
+  update(id: string, updatedUser: IUser) {
     this.users = this.users.map(user => {
         if (user.id === id) {
             return { ...user, ...updatedUser }

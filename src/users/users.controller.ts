@@ -28,8 +28,8 @@ export class UsersController {
   }
 
   @Patch(':id') // PATCH /users/:id
-  update(@Param('id') id: string, @Body() userUpdate: Omit<IUser, 'id'>) {
-    return { id, ...userUpdate };
+  update(@Param('id') id: string, @Body() userUpdate: IUser) {
+    return this.usersService.update(id, userUpdate)
   }
 
   @Delete(':id') // DELETE /users/:id

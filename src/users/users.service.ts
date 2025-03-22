@@ -7,32 +7,42 @@ export class UsersService {
         "id": 1,
         "name": "Leanne Graham",
         "email": "Sincere@april.biz",
-        "role": "INTERN",
+        "role": "intern",
     },
     {
         "id": 2,
         "name": "Ervin Howell",
         "email": "Shanna@melissa.tv",
-        "role": "INTERN",
+        "role": "intern",
     },
     {
         "id": 3,
         "name": "Clementine Bauch",
         "email": "Nathan@yesenia.net",
-        "role": "ENGINEER",
+        "role": "intern",
     },
     {
         "id": 4,
         "name": "Patricia Lebsack",
         "email": "Julianne.OConner@kory.org",
-        "role": "ENGINEER",
+        "role": "admin",
     },
     {
         "id": 5,
         "name": "Chelsey Dietrich",
         "email": "Lucio_Hettinger@annie.ca",
-        "role": "ADMIN",
+        "role": "admin",
     }
-]
+  ]
+
+  findAll(role?: "admin" | "intern"){
+    if(role){
+      return this.users.filter((user) => 
+        user.role === role
+      )
+    }
+    return this.users
+  }
+
 
 }

@@ -5,7 +5,11 @@ export class UsersController {
 
   @Get() // GET /users or /users?role=value
   findAll(@Query('role') role?: 'intern' | 'admin' ){
-    return[]
+    if (role) {
+      return [`Fetching users with role: ${role}`];
+    }
+    return ['Fetching all users'];
+  
   }
   @Get('intern') // GET /users/intern
   findAllInterns(){

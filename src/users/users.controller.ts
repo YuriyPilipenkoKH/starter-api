@@ -6,10 +6,7 @@ export class UsersController {
 
   @Get() // GET /users or /users?role=value
   findAll(@Query('role') role?: 'intern' | 'admin' ){
-    if (role) {
-      return [`Fetching users with role: ${role}`];
-    }
-    return ['Fetching all users'];
+    return this.usersService.findAll(role)
   }
   @Get('intern') // GET /users/intern
   findAllInterns(){

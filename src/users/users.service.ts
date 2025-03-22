@@ -1,34 +1,36 @@
 import { Injectable } from '@nestjs/common';
+import { IUser } from 'src/types/user';
+import { v4 as uuidv4 } from 'uuid'; // Import UUID generator
 
 @Injectable()
 export class UsersService {
   private users = [
     {
-        "id": 1,
+        "id": "1",
         "name": "Leanne Graham",
         "email": "Sincere@april.biz",
         "role": "intern",
     },
     {
-        "id": 2,
+        "id": "2",
         "name": "Ervin Howell",
         "email": "Shanna@melissa.tv",
         "role": "intern",
     },
     {
-        "id": 3,
+        "id": "3",
         "name": "Clementine Bauch",
         "email": "Nathan@yesenia.net",
         "role": "intern",
     },
     {
-        "id": 4,
+        "id": "4",
         "name": "Patricia Lebsack",
         "email": "Julianne.OConner@kory.org",
         "role": "admin",
     },
     {
-        "id": 5,
+        "id": "5",
         "name": "Chelsey Dietrich",
         "email": "Lucio_Hettinger@annie.ca",
         "role": "admin",
@@ -54,28 +56,21 @@ export class UsersService {
     return admins
   }
 
-  findOne(id: number){
-    const user = this.users.find((user) => 
-      user.id === id
-    )
-    return user
+  findOne(id: string){
+   const user = this.users.find(user => user.id === id);
+   return user
   }
 
-  create(user: {
-    name: string,
-    email: string,
-    role: "admin" | "intern"
-  }){
-    const usersByHighestId = [...this.users].sort((a, b) => b.id - a.id)
-    const newUser = {
-        id: usersByHighestId[0].id + 1,
-        ...user
-    }
-    this.users.push(newUser)
-    return newUser
+  create(user: Omit<IUser, 'id'>) {
+    const newUser: IUser = {
+      id: uuidv4(), // Generate a new UUID
+      ...user,
+    };
+    this.users.push(newUser);
+    return newUser;
   }
 
-  update(id: number, updatedUser: { 
+  update(id: string, updatedUser: { 
     name?: string, 
     email?: string,
     role?: 'intern' | 'admin' 
@@ -90,7 +85,7 @@ export class UsersService {
     return this.findOne(id)
   }
 
-  delete(id: number) {
+  delete(id: string) {
     const removedUser = this.findOne(id)
     this.users = this.users.filter(user => user.id !== id)
     return removedUser

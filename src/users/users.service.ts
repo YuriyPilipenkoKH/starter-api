@@ -44,6 +44,11 @@ export class UsersService {
     return this.users
   }
 
+  findAllInterns(){
+    const interns = this.users.filter(user => user.role === 'intern')
+    return interns
+  }
+
   findOne(id: number){
     const user = this.users.find((user) => 
       user.id === id

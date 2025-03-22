@@ -51,6 +51,18 @@ export class UsersService {
     return user
   }
 
-
+  create(user: {
+    name: string,
+    emali: string,
+    role: "admin" | "intern"
+  }){
+    const usersByHighestId = [...this.users].sort((a, b) => b.id - a.id)
+    const newUser = {
+        id: usersByHighestId[0].id + 1,
+        ...user
+    }
+    this.users.push(newUser)
+    return newUser
+  }
 
 }

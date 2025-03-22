@@ -49,6 +49,11 @@ export class UsersService {
     return interns
   }
 
+  findAllAdmins(){
+    const admins = this.users.filter(user => user.role === 'admin')
+    return admins
+  }
+
   findOne(id: number){
     const user = this.users.find((user) => 
       user.id === id

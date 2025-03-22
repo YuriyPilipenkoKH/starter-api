@@ -12,6 +12,10 @@ export class UsersController {
   findAllInterns(){
     return this.usersService.findAllInterns()
   }
+  @Get('admin') // GET /users/admin
+  findAllAdmins(){
+    return this.usersService.findAllAdmins()
+  }
   @Get(':id') // GET /users/:id
   findOne(@Param('id') id:string){
     return this.usersService.findOne(+id)

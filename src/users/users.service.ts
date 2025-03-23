@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 // import { IUser } from 'src/types/user';
 import { v4 as uuidv4 } from 'uuid'; // Import UUID generator
 import { CreateUserDto } from './dto/create-user.dto';
@@ -60,6 +60,9 @@ export class UsersService {
 
   findOne(id: string){
    const user = this.users.find(user => user.id === id);
+   if(!user) {
+    throw new NotFoundException('User not found')
+   }
    return user
   }
 

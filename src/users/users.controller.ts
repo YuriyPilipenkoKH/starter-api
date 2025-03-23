@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query ,ParseUUIDPipe } from '@nestjs/common';
 import { UsersService } from './users.service'
 import { IUser } from 'src/types/user';
 
@@ -19,7 +19,7 @@ export class UsersController {
     return this.usersService.findAllAdmins()
   }
   @Get(':id') // GET /users/:id
-  findOne(@Param('id') id:string){
+  findOne(@Param('id',new ParseUUIDPipe() ) id:string){
     return this.usersService.findOne(id)
   }
 
@@ -29,7 +29,7 @@ export class UsersController {
   }
 
   @Patch(':id') // PATCH /users/:id
-  update(@Param('id') id: string, @Body() userUpdate: IUser) {
+  update(@Param('id',new ParseUUIDPipe() ) id: string, @Body() userUpdate: IUser) {
     return this.usersService.update(id, userUpdate)
   }
 

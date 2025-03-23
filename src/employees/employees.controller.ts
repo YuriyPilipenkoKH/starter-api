@@ -1,6 +1,6 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete , Query} from '@nestjs/common';
 import { EmployeesService } from './employees.service';
-import { Prisma } from '@prisma/client';
+import { Prisma, Role } from '@prisma/client';
 
 
 @Controller('employees')
@@ -8,13 +8,13 @@ export class EmployeesController {
   constructor(private readonly employeesService: EmployeesService) {}
 
   @Post()
-  create(@Body() createEmployeeDto: Prisma.EmployeeCreateInput) {
-    return this.employeesService.create(createEmployeeDto);
+  create(@Body() createEmployee: Prisma.EmployeeCreateInput) {
+    return this.employeesService.create(createEmployee);
   }
 
   @Get()
-  findAll() {
-    return this.employeesService.findAll();
+  findAll(@Query('role') role?: Role) {
+    return this.employeesService.findAll(role);
   }
 
   @Get(':id')
@@ -23,8 +23,8 @@ export class EmployeesController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateEmployeeDto: Prisma.EmployeeUpdateInput) {
-    return this.employeesService.update(id, updateEmployeeDto);
+  update(@Param('id') id: string, @Body() updateEmployee: Prisma.EmployeeUpdateInput) {
+    return this.employeesService.update(id, updateEmployee);
   }
 
   @Delete(':id')

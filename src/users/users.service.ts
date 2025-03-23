@@ -70,10 +70,10 @@ export class UsersService {
     return newUser;
   }
 
-  update(id: string, updatedUser: IUser) {
+  update(id: string, data: IUser) {
     this.users = this.users.map(user => {
         if (user.id === id) {
-            return { ...user, ...updatedUser }
+            return { ...user, ...data }
         }
         return user
     })

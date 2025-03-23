@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { IUser } from 'src/types/user';
+// import { IUser } from 'src/types/user';
 import { v4 as uuidv4 } from 'uuid'; // Import UUID generator
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -61,8 +63,8 @@ export class UsersService {
    return user
   }
 
-  create(user: Omit<IUser, 'id'>) {
-    const newUser: IUser = {
+  create(user: CreateUserDto) {
+    const newUser = {
       id: uuidv4(), // Generate a new UUID
       ...user,
     };
@@ -70,7 +72,7 @@ export class UsersService {
     return newUser;
   }
 
-  update(id: string, data: IUser) {
+  update(id: string, data: UpdateUserDto) {
     this.users = this.users.map(user => {
         if (user.id === id) {
             return { ...user, ...data }

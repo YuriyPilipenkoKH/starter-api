@@ -8,7 +8,10 @@ export class EmployeesService {
 
  async create(employee: Prisma.EmployeeCreateInput) {
     return this.databaseService.employee.create({
-      data: employee
+      data: {
+        ...employee,
+        role: employee.role ?? Role.intern, // 👈 Default to "intern" if no role provided
+      },
     })
   }
 

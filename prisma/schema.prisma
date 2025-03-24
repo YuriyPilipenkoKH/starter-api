@@ -22,7 +22,7 @@ model Employee {
   id        String   @id @default(uuid())
   name      String
   email     String   @unique
-  role      Role
+  role      Role     @default(intern) 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

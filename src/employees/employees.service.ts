@@ -1,17 +1,24 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma } from '@prisma/client';
+import { Employee, Prisma, Role } from '@prisma/client';
 import { DatabaseService } from 'src/database/database.service';
 
 @Injectable()
 export class EmployeesService {
   constructor(private readonly databaseService: DatabaseService){}
 
- async create(createEmployee: Prisma.EmployeeCreateInput) {
-    return 'This action adds a new employee';
+ async create(createEmployee: Prisma.EmployeeCreateInput): Promise<Employee> {
+    return this.databaseService.employee.create({
+      data: createEmployee
+    })
   }
 
-  async findAll() {
-    return `This action returns all employees`;
+  async findAll(role?: Role) {
+    if (role) return this.databaseService.employee.findMany({
+      where: {
+        role,
+      }
+    })
+    return this.databaseService.employee.findMany()
   }
 
   async findOne(id: string) {

@@ -1,18 +1,20 @@
 import { Injectable } from '@nestjs/common';
-import {  Prisma, Role } from '@prisma/client';
+import {  Employee, Prisma, Role } from '@prisma/client';
 import { DatabaseService } from 'src/database/database.service';
+import { CreateEmployeeDto } from './dto/create-employee.dto';
 
 @Injectable()
 export class EmployeesService {
   constructor(private readonly databaseService: DatabaseService){}
 
- async create(employee: Prisma.EmployeeCreateInput) {
+  async create(employee: CreateEmployeeDto): Promise<Employee> {
     return this.databaseService.employee.create({
       data: {
-        ...employee,
-        role: employee.role ?? Role.intern, // 👈 Default to "intern" if no role provided
+        name: employee.name,   // Required
+        email: employee.email, // Required
+        role: employee.role ?? "intern", // Default to intern
       },
-    })
+    });
   }
 
   async findAll(role?: Role) {
@@ -28,11 +30,11 @@ export class EmployeesService {
     })
   }
 
-  async update(id: string, employee: Prisma.EmployeeUpdateInput) {
+  async update(id: string, employee: Prisma.EmployeeUpdateInput): Promise<Employee> {
     return this.databaseService.employee.update({
       where: { id },
       data: employee,
-    })
+    });
   }
 
   async remove(id: string) {

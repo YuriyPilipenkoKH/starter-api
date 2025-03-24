@@ -1,6 +1,7 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete , Query} from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete , Query, BadRequestException} from '@nestjs/common';
 import { EmployeesService } from './employees.service';
 import { Prisma, Role } from '@prisma/client';
+import { CreateEmployeeDto, createEmployeeSchema } from './dto/create-employee.dto';
 
 
 @Controller('employees')
@@ -8,8 +9,14 @@ export class EmployeesController {
   constructor(private readonly employeesService: EmployeesService) {}
 
   @Post()
-  create(@Body() employee: Prisma.EmployeeCreateInput) {
-    return this.employeesService.create(employee);
+  create(@Body() employee: CreateEmployeeDto) {
+    try {
+      // Validate with Zod
+      const validatedData = createEmployeeSchema.parse(employee);
+      return this.employeesService.create(validatedData);
+    } catch (error) {
+      throw new BadRequestException(error.errors); // Return validation errors
+    }
   }
 
   @Get()

@@ -8,8 +8,8 @@ export class EmployeesController {
   constructor(private readonly employeesService: EmployeesService) {}
 
   @Post()
-  create(@Body() createEmployee: Prisma.EmployeeCreateInput) {
-    return this.employeesService.create(createEmployee);
+  create(@Body() employee: Prisma.EmployeeCreateInput) {
+    return this.employeesService.create(employee);
   }
 
   @Get()
@@ -23,8 +23,8 @@ export class EmployeesController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateEmployee: Prisma.EmployeeUpdateInput) {
-    return this.employeesService.update(id, updateEmployee);
+  update(@Param('id') id: string, @Body() employee: Prisma.EmployeeUpdateInput) {
+    return this.employeesService.update(id, employee);
   }
 
   @Delete(':id')

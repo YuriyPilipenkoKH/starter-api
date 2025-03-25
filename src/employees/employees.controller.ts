@@ -18,6 +18,7 @@ export class EmployeesController {
       throw new BadRequestException(error.errors); // Return validation errors
     }
   }
+  
 
   @Get()
   findAll(@Query('role') role?: Role) {
